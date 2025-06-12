@@ -1,0 +1,36 @@
+--creamos la base de datos 
+create database vista
+use vista
+--ceamos una tabla 
+create table reporte(
+producto int not null,
+descripcion varchar(250),
+costo float,
+precio float,
+existencia int
+primary key (producto)
+)
+--insertamos 100 registros usando un bucle (en este caso por no necesitar datos especificos si no aleatorios)
+DECLARE @i INT = 1;
+
+WHILE @i <= 100
+BEGIN
+    INSERT INTO reporte -- Cambia "TuTabla" por el nombre real de tu tabla
+    (
+        producto,
+        descripcion,
+        costo,
+        precio,
+        existencia
+    )
+    VALUES (
+        @i, 
+        CONCAT('Producto ', @i), 
+        ROUND(RAND() * 50.0, 2),              
+        ROUND(RAND() * 100.0 + 50.0, 2),      
+        FLOOR(RAND() * 200) + 1               
+    );
+
+    SET @i = @i + 1;
+END;
+select *from reporte
